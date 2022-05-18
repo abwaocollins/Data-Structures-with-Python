@@ -80,15 +80,49 @@ class linkedlist:
             count = count + 1
             itr = itr.next
 
+    def insert_after_value(self,data_after, data):
+        if self.head.data == data_after:
+            new_node = Node(data,self.head.next)
+            self.head.next = new_node
+        itr = self.head
+
+        while itr:
+            if itr.data == data_after:
+                new_node = Node(data, itr.next)
+                itr.next = new_node
+                break
+
+            itr = itr.next
+
+    def remove_by_value(self,data):
+
+        if self.head.data == data:
+            self.head = self.head.next
+            return
+        
+        itr = self.head
+
+
+        while itr:
+            if itr.next.data == data:
+                itr.next = itr.next.next
+                break
+            itr = itr.next
+
+
+
 instance_link = linkedlist()
-instance_link.insert_beginning(20)
-instance_link.insert_beginning(65)
-instance_link.insert_beginning(78)
-instance_link.insert_end(55)
+# instance_link.insert_beginning(20)
+# instance_link.insert_beginning(65)
+# instance_link.insert_beginning(78)
+# instance_link.insert_end(55)
 instance_link.insert_list_values([21,23,45,66])
 instance_link.print_items()
-instance_link.del_at(2)
-instance_link.insert_at(3,77)
+# instance_link.del_at(2)
+# instance_link.insert_at(3,77)
+# instance_link.insert_after_value(23,42)
+instance_link.remove_by_value(21)
+instance_link.remove_by_value(66)
 instance_link.print_items()
 
 print("length",instance_link.len_of_linkedlist())
