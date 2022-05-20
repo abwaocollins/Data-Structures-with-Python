@@ -26,14 +26,35 @@ class Stack:
             count = count - 1
         return " ".join(self.container)
 
+    def is_balanced(self,data):
+        dic = {
+            "(":")",
+            "[":"]",
+            "{":"}"
+        }
+
+        for i in data:
+            for k,v in dic.items():
+                if i == k:
+                    self.push(i)
+                
+        print(self.container)
+
+        for i in data:
+            for k,v in dic.items():
+                if i == v and len(self.container) > 0:
+                    self.pop()
+        return self.is_empty()
+
 new_stack = Stack()
 # new_stack.push("Barry")
 # new_stack.push("Collins")
 # new_stack.push("Stephen")
 # new_stack.pop()
 # new_stack.peek()
-print("The stack is empty", new_stack.is_empty())
-print(f"The stack has {new_stack.size_of_stack()} items")
-new_stack.items()
+# print("The stack is empty", new_stack.is_empty())
+# print(f"The stack has {new_stack.size_of_stack()} items")
+# new_stack.items()
 
-print("Reversed string: ", new_stack.reverse_string("Barry is a fool"))
+# print("Reversed string: ", new_stack.reverse_string("Barry is a fool"))
+print(f"Paranthesis balance {new_stack.is_balanced('boy {(({))}')}")
