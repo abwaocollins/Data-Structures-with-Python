@@ -39,14 +39,53 @@ class BinarySearchTree:
             return True
         if val < self.data:
             if self.left:
-                self.left.search(val)
+                return self.left.search(val)
             else:
                 return False
         if val > self.data:
             if self.right:
-                self.search(val)
+                return self.search(val)
             else:
                 return False
+
+    def find_max(self):
+        if self.right is None:
+            return self.data
+        return self.right.find_max()
+
+    def find_min(self):
+        if self.left is None:
+            return self.data
+        return self.left.find_min()
+
+    def post_order_traversal(self):
+        elements = []
+
+        if self.left:
+            elements += self.left.post_order_traversal()
+
+        if self.right:
+            elements += self.right.post_order_traversal()
+
+        elements.append(self.data)
+
+        return elements
+
+    def pre_order_traversal(self):
+        elements = [self.data]
+
+        if self.left:
+            elements += self.left.pre_order_traversal()
+
+        if self.right:
+            elements += self.right.pre_order_traversal()
+        return elements
+
+    def calc_sum(self):
+        left_branch = self.left.calc_sum() if self.left else 0
+        right_branch = self.right.calc_sum() if self.right else 0
+
+        return self.data + left_branch + right_branch
 
 
 def build_tree(elements):
@@ -62,3 +101,9 @@ numbers_tree = build_tree([17, 4, 1, 20, 9, 23, 18, 34])
 print("In order traversal gives this sorted list:",
       numbers_tree.in_order_traversal())
 print(f" 17 in the random numbers: {numbers_tree.search(17)}")
+print(f"max is {numbers_tree.find_max()}")
+
+print("Sum:", numbers_tree.calc_sum())
+print("In order traversal:", numbers_tree.in_order_traversal())
+print("Pre order traversal:", numbers_tree.pre_order_traversal())
+print("Post order traversal:", numbers_tree.post_order_traversal())
