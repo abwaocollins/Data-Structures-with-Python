@@ -86,6 +86,26 @@ class BinarySearchTree:
         right_branch = self.right.calc_sum() if self.right else 0
 
         return self.data + left_branch + right_branch
+    def delete(self, val):
+        if val < self.data:
+            if self.left:
+                self.left = self.left.delete(val)
+        elif val > self.data:
+            if self.right:
+                self.right = self.right.delete(val)
+        else:
+            if self.right and self.left is None:
+                return None
+            if self.left is None:
+                return self.right
+            if self.right is None:
+                return self.right
+            min_val = self.right.find_min()
+            self.data = min_val
+            self.right = self.right.delete(val)
+
+        return self
+
 
 
 def build_tree(elements):
@@ -107,3 +127,5 @@ print("Sum:", numbers_tree.calc_sum())
 print("In order traversal:", numbers_tree.in_order_traversal())
 print("Pre order traversal:", numbers_tree.pre_order_traversal())
 print("Post order traversal:", numbers_tree.post_order_traversal())
+numbers_tree.delete(17)
+print("In order traversal:", numbers_tree.in_order_traversal())
